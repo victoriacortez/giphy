@@ -1,0 +1,17 @@
+body{
+	padding-top: 20px;
+	font-family: 'Trirong', serif;
+}
+button{
+	background-color: #f89d8a;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}

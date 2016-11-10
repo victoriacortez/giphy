@@ -1,0 +1,107 @@
+<html>
+<head>
+	<title>Classic Hollywood</title>
+	<link href="https://fonts.googleapis.com/css?family=Trirong" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+</head>
+<body>
+
+<div class="container">
+  <p>Classic Hollywood Gifs</p>
+
+  
+  <div id="newButton">
+
+  </div>
+
+  <div id="gifDiv">
+  </div>
+  <div id="gifs">
+  </div>
+
+
+    <label for="input-box">I want to be a star</label>
+    <input type="text" id="input-box"><br>
+    
+   
+    <input id="newButton" type="submit" value="new actress">
+  </form>
+
+<script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+<script type="text/javascript">
+
+	// array
+	var actress = ['Gene Tierney', 'Jean Harlow', 'Lucille Ball', 'Joanne Woodward', 'Hedy Lamarr', 'Vivien Leigh'];
+
+
+	function renderButtons(){ 
+
+		$('#newButton').empty();
+
+		for (var i = 0; i < actress.length; i++){
+
+			
+		    var a = $('<button>') 
+		    a.addClass('ladies'); 
+		    a.attr('data-name', actress[i]); 
+		    a.html(actress[i]); 
+		    $('#newButton').append(a);
+		}
+	}
+
+	
+	$('#newButton').on('click', function(){
+
+		
+		var ladies = $('#input-box').val().trim();
+
+		
+		actress.push(ladies);
+		
+		
+		renderButtons();
+
+		
+		return false;
+	})
+
+	
+	renderButtons();
+
+	 $('#newButton').on('click', function() {
+        var p = $(this).data('actress'); 
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=5";
+
+        $.ajax({
+                url: queryURL,
+                method: 'GET'
+            })
+            .done(function(response) {
+                var results = response.data;
+
+                for (var i = 0; i < actress.length; i++) {
+                    var gifDiv = $('<div class="actress">')
+
+                    var rating = results[i].rating;
+
+                    var p = $('<p>').text("Rating: " + rating);
+
+                    var actressPic = $('<img>');
+                    actressPic.attr('src', results[i].images.fixed_height.url);
+
+                    gifDiv.append(p)
+                    gifDiv.append(actressPic)
+
+                    $('#gifs').prepend(gifDiv);
+                }
+            });
+    });
+
+
+
+</script>
+
+
+</body>
+</html>
