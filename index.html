@@ -71,7 +71,7 @@
 
 	 $('#newButton').on('click', function() {
         var p = $(this).data('actress'); 
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=5";
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + actress + "&api_key=dc6zaTOxFJmzC&limit=5";
 
         $.ajax({
                 url: queryURL,
