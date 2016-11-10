@@ -8,10 +8,10 @@
 <body>
 
 <div class="container">
-  <p>Classic Hollywood Gifs</p>
+  <h1>Classic Hollywood Gifs</h1>
 
   
-  <div id="newButton">
+  <div id="newBtn">
 
   </div>
 
@@ -21,55 +21,41 @@
   </div>
 
 
-    <label for="input-box">I want to be a star</label>
-    <input type="text" id="input-box"><br>
+    <label for="box">I'm ready for my close up</label>
+    <input type="text" id="box"><br>
     
    
-    <input id="newButton" type="submit" value="new actress">
+    <input id="newBtn" type="submit" value="new actress">
   </form>
 
 <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
 <script type="text/javascript">
 
 	// array
-	var actress = ['Gene Tierney', 'Jean Harlow', 'Lucille Ball', 'Joanne Woodward', 'Hedy Lamarr', 'Vivien Leigh'];
+var actress = ['Gene Tierney', 'Jean Harlow', 'Marlene Dietrich', 'Lucille Ball', 'Joanne Woodward', 'Hedy Lamarr', 'Vivien Leigh', 'Veronica Lake', 'Lauren Bacall'];
 
 
-	function renderButtons(){ 
+function renderButtons(){ 
 
-		$('#newButton').empty();
+	$('#newBtn').empty();
 
-		for (var i = 0; i < actress.length; i++){
+	for (var i = 0; i < actress.length; i++){
 
-			
-		    var a = $('<button>') 
-		    a.addClass('ladies'); 
-		    a.attr('data-name', actress[i]); 
-		    a.html(actress[i]); 
-		    $('#newButton').append(a);
+		var a = $('<button>') 
+		a.addClass('ladies'); 
+		a.addClass('newaction');
+		a.addClass('btn');
+		a.attr('data-name', actress[i]); 
+		a.text(actress[i]); 
+		$('#newBtn').append(a);
 		}
 	}
-
 	
-	$('#newButton').on('click', function(){
-
-		
-		var ladies = $('#input-box').val().trim();
-
-		
-		actress.push(ladies);
-		
-		
-		renderButtons();
-
-		
-		return false;
-	})
-
 	
-	renderButtons();
 
-	 $('#newButton').on('click', function() {
+	 $('#newBtn').on('click', function() {
+	 	$("#gifs").empty();
+
         var p = $(this).data('actress'); 
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + actress + "&api_key=dc6zaTOxFJmzC&limit=5";
 
@@ -80,7 +66,7 @@
             .done(function(response) {
                 var results = response.data;
 
-                for (var i = 0; i < actress.length; i++) {
+                for (var i = 0; i < results.length; i++) {
                     var gifDiv = $('<div class="actress">')
 
                     var rating = results[i].rating;
@@ -99,7 +85,13 @@
     });
 
 
-
+       $('#newBtn').on('click', function(){
+            var old = $('#box').val().trim();
+            topics.push(old);
+            renderButtons();
+                return false;
+    })
+ renderButtons();
 </script>
 
 
